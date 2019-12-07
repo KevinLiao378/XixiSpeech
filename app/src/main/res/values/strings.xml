@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">西西语音合成助手</string>
+    <string name="app_id">5deb13b2</string>
+    <string name="btn_tts">语音合成</string>
+    <string name="text_tts_source_en_hint">请输入英文</string>
+    <string name="text_tts_source_hint">请输入&#8230;</string>
+    <string formatted="false" name="tts_toast_format">缓冲进度为%d%%，播放进度为%d%%</string>
+</resources>
