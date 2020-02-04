@@ -2,9 +2,11 @@ package cc.kevinliao.xixi;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -82,7 +84,15 @@ public class OutputActivity extends AppCompatActivity {
         outputAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                OutputBean outputBean = list.get(position);
+                if (outputBean != null && !TextUtils.isEmpty(outputBean.getPath())) {
+                    AudioPlayerUtils.getInstance().play(OutputActivity.this, outputBean.getPath(), new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mediaPlayer) {
 
+                        }
+                    });
+                }
             }
         });
         recyclerView.setAdapter(outputAdapter);
@@ -103,7 +113,7 @@ public class OutputActivity extends AppCompatActivity {
                 return true;
             case R.id.action_clear:
                 new AlertDialog.Builder(this)
-                        .setMessage("确定清空所以文件？")
+                        .setMessage("确定清空所有文件？")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -169,5 +179,23 @@ public class OutputActivity extends AppCompatActivity {
             intentShareFile.putExtra(Intent.EXTRA_TEXT, "发送文件...");
             startActivity(Intent.createChooser(intentShareFile, "发送文件..."));
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AudioPlayerUtils.getInstance().pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AudioPlayerUtils.getInstance().resume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AudioPlayerUtils.getInstance().release();
     }
 }

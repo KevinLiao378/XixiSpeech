@@ -32,7 +32,6 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechEvent;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
-import com.iflytek.cloud.msc.util.log.DebugLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,7 +50,7 @@ public class TtsDemoActivity extends AppCompatActivity implements OnClickListene
 	private SpeechSynthesizer mTts;
 
 	// 默认发音人
-	private String voicer = "xiaoyan";
+	private String voicer = "x_steve";
 	
 	private String[] mCloudVoicersEntries;
 	private String[] mCloudVoicersValue ;
@@ -75,7 +74,6 @@ public class TtsDemoActivity extends AppCompatActivity implements OnClickListene
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ttsdemo);
 		initLayout();
-		DebugLog.setShowLog(true);
 		// 初始化合成对象
 		mTts = SpeechSynthesizer.createSynthesizer(TtsDemoActivity.this, mTtsInitListener);
 		
@@ -194,7 +192,7 @@ public class TtsDemoActivity extends AppCompatActivity implements OnClickListene
 			break;
 		}
 	}
-	private int selectedNum = 0;
+	private int selectedNum = 3;
 	/**
 	 * 发音人选择。
 	 */
@@ -209,7 +207,7 @@ public class TtsDemoActivity extends AppCompatActivity implements OnClickListene
 					public void onClick(DialogInterface dialog,
 							int which) { // 点击了哪一项
 						voicer = mCloudVoicersValue[which];
-						if ("catherine".equals(voicer) || "henry".equals(voicer) || "vimary".equals(voicer)) {
+						if ("catherine".equals(voicer) || "henry".equals(voicer) || "vimary".equals(voicer) || "x_steve".equals(voicer)) {
 							 ((EditText) findViewById(R.id.tts_text)).setHint(R.string.text_tts_source_en_hint);
 						}else {
 							((EditText) findViewById(R.id.tts_text)).setHint(R.string.text_tts_source_hint);
@@ -285,7 +283,6 @@ public class TtsDemoActivity extends AppCompatActivity implements OnClickListene
 			System.out.println("oncompleted");
 			if (error == null) {
 				showTip("播放完成");
-				DebugLog.LogD("播放完成,"+container.size());
 				updateList(texts, FileConstant.getSpeechRootPath() + File.separator + MD5Utils.getMD5(texts) + ".wav");
 			}
 		}

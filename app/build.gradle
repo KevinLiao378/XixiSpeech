@@ -44,4 +44,5 @@ dependencies {
     implementation files('libs/Msc.jar')
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47-androidx'
     implementation 'com.blankj:utilcodex:1.26.0'
+    implementation 'pub.devrel:easypermissions:3.0.0'
 }
